@@ -23,7 +23,7 @@ DOMAIN=$1
 EMAIL=$2
 NGINX_CONF_DIR="./nginx/conf.d"
 CERTBOT_DIR="./certbot"
-DOCKER_COMPOSE_FILE="./docker-compose.yml"
+DOCKER_COMPOSE_FILE="./docker compose.yml"
 
 # Validate domain format (basic check)
 if ! [[ $DOMAIN =~ ^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$ ]]; then
@@ -45,9 +45,9 @@ mkdir -p "$NGINX_CONF_DIR"
 mkdir -p "$CERTBOT_DIR/conf"
 mkdir -p "$CERTBOT_DIR/www"
 
-# Check if docker-compose.yml exists
+# Check if docker compose.yml exists
 if [ ! -f "$DOCKER_COMPOSE_FILE" ]; then
-    echo -e "${RED}Error: docker-compose.yml not found. Please run init-nginx.sh first.${NC}"
+    echo -e "${RED}Error: docker compose.yml not found. Please run init-nginx.sh first.${NC}"
     exit 1
 fi
 
@@ -79,13 +79,13 @@ EOF
 
 # Reload nginx to apply the configuration
 echo -e "${GREEN}Reloading nginx...${NC}"
-docker-compose exec -T nginx nginx -t && docker-compose exec -T nginx nginx -s reload || {
+docker compose exec -T nginx nginx -t && docker compose exec -T nginx nginx -s reload || {
     echo -e "${YELLOW}Note: nginx not running or reload failed. Will apply on next start.${NC}"
 }
 
 # Request SSL certificate from Let's Encrypt
 echo -e "${GREEN}Requesting SSL certificate from Let's Encrypt...${NC}"
-docker-compose run --rm certbot certonly --webroot \
+docker compose run --rm certbot certonly --webroot \
     --webroot-path=/var/www/certbot \
     --email "$EMAIL" \
     --agree-tos \
@@ -155,13 +155,13 @@ EOF
 
 # Reload nginx to apply the SSL configuration
 echo -e "${GREEN}Reloading nginx with SSL configuration...${NC}"
-docker-compose exec -T nginx nginx -t && docker-compose exec -T nginx nginx -s reload
+docker compose exec -T nginx nginx -t && docker compose exec -T nginx nginx -s reload
 
 echo -e "${GREEN}✓ Domain ${DOMAIN} has been configured successfully!${NC}"
 echo ""
 echo "Next steps:"
 echo "  1. Verify the site is accessible at https://${DOMAIN}"
 echo "  2. Edit ${CONF_FILE} to customize the configuration"
-echo "  3. Reload nginx after changes: docker-compose exec nginx nginx -s reload"
+echo "  3. Reload nginx after changes: docker compose exec nginx nginx -s reload"
 echo ""
 echo "Note: Certificates will auto-renew via the certbot container."
