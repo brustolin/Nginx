@@ -1,0 +1,17 @@
+# Certbot certificates and private keys
+certbot/conf/*
+certbot/www/*
+
+# Backup files
+*.backup.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
