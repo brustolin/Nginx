@@ -90,7 +90,7 @@ certbot certonly --webroot \
     --email "$EMAIL" \
     --agree-tos \
     --no-eff-email \
-    -d "$DOMAIN" {
+    -d "$DOMAIN" || {
     echo -e "${RED}Certificate request failed. This could be because:${NC}"
     echo "  - The domain does not point to this server"
     echo "  - Port 80 is not accessible from the internet"
