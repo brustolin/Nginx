@@ -19,7 +19,7 @@ if [ ! -f "nginx/conf.d/default.conf" ]; then
     cp nginx/conf.d/conf.template nginx/conf.d/default.conf
 fi
 
-docker-compose up -d
+docker compose up -d
 
 # Create README sections
 echo -e "${GREEN}Setup complete!${NC}"
