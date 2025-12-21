@@ -23,7 +23,7 @@ DOMAIN=$1
 EMAIL=$2
 NGINX_CONF_DIR="./nginx/conf.d"
 CERTBOT_DIR="./certbot"
-DOCKER_COMPOSE_FILE="./docker compose.yml"
+DOCKER_COMPOSE_FILE="./docker-compose.yml"
 
 # Validate domain format (basic check)
 if ! [[ $DOMAIN =~ ^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$ ]]; then
