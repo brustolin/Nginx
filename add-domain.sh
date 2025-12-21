@@ -85,8 +85,10 @@ docker compose exec -T nginx nginx -t && docker compose exec -T nginx nginx -s r
 
 # Request SSL certificate from Let's Encrypt
 echo -e "${GREEN}Requesting SSL certificate from Let's Encrypt...${NC}"
-certbot certonly --webroot \
-    --webroot-path="$CERTBOT_DIR/www" \
+docker compose run --rm \
+  --entrypoint certbot \
+  certbot certonly --webroot \
+    --webroot-path=/var/www/certbot \
     --email "$EMAIL" \
     --agree-tos \
     --no-eff-email \
