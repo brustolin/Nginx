@@ -15,3 +15,7 @@ server {
         root /var/www/certbot;
     }
 }
+
+gzip on;
+gzip_types text/plain text/css application/javascript application/json image/svg+xml;
+gzip_min_length 256;
