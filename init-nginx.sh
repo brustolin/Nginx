@@ -16,7 +16,7 @@ echo -e "${GREEN}Initializing the environment...${NC}"
 # Create default nginx configuration
 if [ ! -f "nginx/conf.d/default.conf" ]; then
     echo -e "${GREEN}Creating default nginx configuration...${NC}"
-    cp nginx/conf.d/init.conf nginx/conf.d/default.conf
+    cp nginx/conf.d/conf.template nginx/conf.d/default.conf
 fi
 
 docker-compose up -d
