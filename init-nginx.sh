@@ -112,30 +112,6 @@ else
     echo -e "${YELLOW}docker-compose.yml already exists, skipping...${NC}"
 fi
 
-# Create .gitignore
-if [ ! -f ".gitignore" ]; then
-    echo -e "${GREEN}Creating .gitignore...${NC}"
-    cat > .gitignore << 'EOF'
-# Certbot certificates and private keys
-certbot/conf/*
-certbot/www/*
-
-# Backup files
-*.backup.*
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-EOF
-fi
-
 # Create README sections
 echo -e "${GREEN}Setup complete!${NC}"
 echo ""
