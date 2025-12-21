@@ -18,4 +18,3 @@ Thumbs.db
 *.swo
 *~
 nginx/conf.d/default.conf
-docker-compose.yml
