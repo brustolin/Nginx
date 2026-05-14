@@ -20,14 +20,14 @@ if [ ! -f "./docker-compose.yml" ]; then
 fi
 
 # Renew certificates
-docker-compose run --rm certbot renew || {
+docker compose run --rm certbot renew || {
     echo -e "${RED}Certificate renewal failed${NC}"
     exit 1
 }
 
 # Reload nginx to apply new certificates
 echo -e "${GREEN}Reloading nginx...${NC}"
-docker-compose exec -T nginx nginx -s reload || {
+docker compose exec -T nginx nginx -s reload || {
     echo -e "${YELLOW}Warning: nginx reload failed${NC}"
 }
 
