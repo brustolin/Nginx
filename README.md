@@ -85,6 +85,26 @@ Adds a new domain to nginx and requests an SSL certificate from Let's Encrypt.
 
 **Note:** The domain must point to your server's IP address before running this script.
 
+### `import-nginx-conf.sh`
+
+Imports an nginx configuration file into the local nginx setup and requests Let's Encrypt certificates for the domains declared in that file.
+
+**Usage:**
+```bash
+./import-nginx-conf.sh <path-to-nginx-conf> [email]
+```
+
+**Example:**
+```bash
+./import-nginx-conf.sh ./examples/reverse-proxy.conf admin@example.com
+```
+
+**What it does:**
+1. Copies the supplied nginx config into `nginx/conf.d/`
+2. Extracts the `server_name` entries from the file
+3. Uses a temporary HTTP challenge handler so certbot can validate the domain
+4. Requests the relevant certificates and leaves the imported config in place for customization
+
 ### `remove-domain.sh`
 
 Removes a domain's nginx configuration (certificates are preserved).
