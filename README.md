@@ -231,6 +231,33 @@ docker-compose exec nginx nginx -t  # Test configuration
 docker-compose exec nginx nginx -s reload  # Reload configuration
 ```
 
+## Updating an existing NGINX deployment
+
+NGINX 1.31.9 fixes the HTTP/2 vulnerabilities CVE-2026-123007 and CVE-2026-123633. [NGINX security advisories](https://nginx.org/en/security_advisories.html)
+
+From the updated checkout on the deployment host, pull the pinned image and validate the mounted configuration with it.
+
+```bash
+docker compose pull nginx
+docker compose run --rm --no-deps --entrypoint nginx nginx -t
+```
+
+Proceed only after both commands succeed. Recreating the NGINX container can briefly interrupt traffic. Verify the version in the running container after recreating it.
+
+```bash
+docker compose up -d --no-deps --force-recreate nginx
+docker compose exec -T nginx nginx -v
+```
+
+Expect `nginx/1.31.9`. Use an HTTP/2-capable `curl` to check an HTTPS endpoint on your domain, including a proxied route if configured.
+
+```bash
+curl --http2 --silent --show-error --output /dev/null \
+  --write-out 'HTTP/%{http_version} %{http_code}\n' https://example.com/
+```
+
+Confirm the output shows `HTTP/2` and the status code expected for that route.
+
 ## Troubleshooting
 
 ### Certificate Request Fails
