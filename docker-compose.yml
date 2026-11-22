@@ -2,6 +2,11 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
+    logging:
+      driver: json-file
+      options:
+        max-size: "90m"
+        max-file: "5"
     restart: unless-stopped
     ports:
       - "80:80"
